@@ -5,10 +5,6 @@ import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.tomishi.sampletvapp.R;
 
@@ -28,5 +24,20 @@ public class MainFragment extends BrowseFragment {
         Log.i(TAG, "onActivityCreated");
         super.onActivityCreated(savedInstanceState);
 
+        setupUIElements();
+    }
+
+    private void setupUIElements() {
+        // setBadgeDrawable(getActivity().getResources().getDrawable(R.drawable.videos_by_google_banner));
+        setTitle("Sample TV App");
+
+        // over title
+        setHeadersState(HEADERS_ENABLED);
+        setHeadersTransitionOnBackEnabled(true);
+
+        // set fastLane (or headers) background color
+        setBrandColor(getResources().getColor(R.color.fastlane_background));
+        // set search icon color
+        setSearchAffordanceColor(getResources().getColor(R.color.search_opaque));
     }
 }
