@@ -15,6 +15,7 @@ import com.tomishi.sampletvapp.R;
 import com.tomishi.sampletvapp.model.Video;
 import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.GridItemPresenter;
+import com.tomishi.sampletvapp.presenter.PhotoItemPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,8 +56,9 @@ public class MainFragment extends BrowseFragment {
     private void loadRows() {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
 
-        loadGridItemRow();
-        loadCardItemRow();
+        loadGridItemRow();  // index 0
+        loadCardItemRow();  // index 1 - 3
+        loadPhotoItemRow(); // index 4
 
         /* set */
         setAdapter(mRowsAdapter);
@@ -103,5 +105,16 @@ public class MainFragment extends BrowseFragment {
         mRowsAdapter.add(new ListRow(header1, adapter1));
         mRowsAdapter.add(new ListRow(header2, adapter2));
         mRowsAdapter.add(new ListRow(header3, adapter3));
+    }
+
+    private void loadPhotoItemRow() {
+        HeaderItem header = new HeaderItem(4, "PhotoItem");
+
+        ArrayObjectAdapter adapter = new ArrayObjectAdapter(new PhotoItemPresenter());
+        adapter.add(R.drawable.photo1);
+        adapter.add(R.drawable.photo2);
+        adapter.add(R.drawable.photo3);
+
+        mRowsAdapter.add(new ListRow(header, adapter));
     }
 }
