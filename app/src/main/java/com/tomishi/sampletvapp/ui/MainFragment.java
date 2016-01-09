@@ -4,6 +4,7 @@ package com.tomishi.sampletvapp.ui;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
+import android.support.v17.leanback.widget.BaseCardView;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
@@ -74,19 +75,33 @@ public class MainFragment extends BrowseFragment {
     }
 
     private void loadCardItemRow() {
-        HeaderItem header = new HeaderItem(1, "CardItemPresenter");
+        HeaderItem header1 = new HeaderItem(1, "CardItemPresenter(TYPE_MAIN_ONLY)");
+        ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(
+                new CardItemPresenter(BaseCardView.CARD_TYPE_MAIN_ONLY)
+        );
 
-        CardItemPresenter presenter = new CardItemPresenter();
-        ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenter);
+        HeaderItem header2 = new HeaderItem(2, "CardItemPresenter(TYPE_INFO_OVER)");
+        ArrayObjectAdapter adapter2 = new ArrayObjectAdapter(
+                new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_OVER)
+        );
+
+        HeaderItem header3 = new HeaderItem(3, "CardItemPresenter(TYPE_INFO_UNDER)");
+        ArrayObjectAdapter adapter3 = new ArrayObjectAdapter(
+                new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_UNDER)
+        );
 
         for (int i = 0; i < 10; i++) {
             Video video = new Video();
             video.setId(i);
             video.setTitle("title" + i);
             video.setStudio("studio" + i);
-            adapter.add(video);
+            adapter1.add(video);
+            adapter2.add(video);
+            adapter3.add(video);
         }
 
-        mRowsAdapter.add(new ListRow(header, adapter));
+        mRowsAdapter.add(new ListRow(header1, adapter1));
+        mRowsAdapter.add(new ListRow(header2, adapter2));
+        mRowsAdapter.add(new ListRow(header3, adapter3));
     }
 }
