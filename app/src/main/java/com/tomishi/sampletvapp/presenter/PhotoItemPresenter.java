@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.tomishi.sampletvapp.R;
+import com.tomishi.sampletvapp.model.Photo;
 
 public class PhotoItemPresenter extends Presenter {
     @Override
@@ -29,7 +30,7 @@ public class PhotoItemPresenter extends Presenter {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, Object item) {
-        Integer id = (Integer)item;
+        Photo photo = (Photo)item;
         ImageView view = (ImageView)viewHolder.view;
 
         Context context = view.getContext();
@@ -37,7 +38,7 @@ public class PhotoItemPresenter extends Presenter {
         int height = context.getResources().getDimensionPixelSize(R.dimen.card_item_height);
 
         Picasso.with(context)
-                .load(id)
+                .load(photo.getId())
                 .resize(width, height)
                 .into(view);
     }

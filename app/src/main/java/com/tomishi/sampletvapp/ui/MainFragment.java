@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.tomishi.sampletvapp.R;
+import com.tomishi.sampletvapp.model.Photo;
 import com.tomishi.sampletvapp.model.Video;
 import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.GridItemPresenter;
@@ -111,9 +112,9 @@ public class MainFragment extends BrowseFragment {
         HeaderItem header = new HeaderItem(4, "PhotoItem");
 
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(new PhotoItemPresenter());
-        adapter.add(R.drawable.photo1);
-        adapter.add(R.drawable.photo2);
-        adapter.add(R.drawable.photo3);
+        adapter.add(new Photo(R.drawable.photo1));
+        adapter.add(new Photo(R.drawable.photo2));
+        adapter.add(new Photo(R.drawable.photo3));
 
         mRowsAdapter.add(new ListRow(header, adapter));
     }
