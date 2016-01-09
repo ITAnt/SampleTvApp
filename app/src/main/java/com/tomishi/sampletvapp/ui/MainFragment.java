@@ -8,10 +8,15 @@ import android.support.v17.leanback.widget.BaseCardView;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.OnItemViewSelectedListener;
+import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.Row;
+import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.tomishi.sampletvapp.R;
+import com.tomishi.sampletvapp.manager.PicassoBackgroundManager;
 import com.tomishi.sampletvapp.model.Photo;
 import com.tomishi.sampletvapp.model.Video;
 import com.tomishi.sampletvapp.presenter.CardItemPresenter;
@@ -25,6 +30,7 @@ public class MainFragment extends BrowseFragment {
 
     private static final String TAG = MainFragment.class.getSimpleName();
     private ArrayObjectAdapter mRowsAdapter;
+    private PicassoBackgroundManager mBackgroundManager;
 
     public MainFragment() {
         // Required empty public constructor
@@ -38,6 +44,10 @@ public class MainFragment extends BrowseFragment {
         setupUIElements();
 
         loadRows();
+
+        setupEventListeners();
+
+        mBackgroundManager = new PicassoBackgroundManager(getActivity());
     }
 
     private void setupUIElements() {
@@ -117,5 +127,23 @@ public class MainFragment extends BrowseFragment {
         adapter.add(new Photo(R.drawable.photo3));
 
         mRowsAdapter.add(new ListRow(header, adapter));
+    }
+
+    private void setupEventListeners() {
+        setOnItemViewSelectedListener(new ItemViewSelectedListener());
+    }
+
+    private final class ItemViewSelectedListener implements OnItemViewSelectedListener {
+        @Override
+        public void onItemSelected(Presenter.ViewHolder itemViewHolder, Object item,
+                                    RowPresenter.ViewHolder rowViewHolder, Row row) {
+
+            Log.i(TAG, "onItemSelected");
+            if (item instanceof Photo) {
+                mBackgroundManager.updateBackground(((Photo)item).getId());
+            } else {
+                mBackgroundManager.updateBackground(0);
+            }
+        }
     }
 }
