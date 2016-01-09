@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.tomishi.sampletvapp.R;
+import com.tomishi.sampletvapp.model.Video;
+import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.GridItemPresenter;
 
 /**
@@ -53,6 +55,7 @@ public class MainFragment extends BrowseFragment {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
 
         loadGridItemRow();
+        loadCardItemRow();
 
         /* set */
         setAdapter(mRowsAdapter);
@@ -66,6 +69,23 @@ public class MainFragment extends BrowseFragment {
         adapter.add("ITEM 1");
         adapter.add("ITEM 2");
         adapter.add("ITEM 3");
+
+        mRowsAdapter.add(new ListRow(header, adapter));
+    }
+
+    private void loadCardItemRow() {
+        HeaderItem header = new HeaderItem(1, "CardItemPresenter");
+
+        CardItemPresenter presenter = new CardItemPresenter();
+        ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenter);
+
+        for (int i = 0; i < 10; i++) {
+            Video video = new Video();
+            video.setId(i);
+            video.setTitle("title" + i);
+            video.setStudio("studio" + i);
+            adapter.add(video);
+        }
 
         mRowsAdapter.add(new ListRow(header, adapter));
     }

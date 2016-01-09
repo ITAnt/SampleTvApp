@@ -2,4 +2,7 @@
 <resources>
     <dimen name="grid_item_width">100dp</dimen>
     <dimen name="grid_item_height">100dp</dimen>
+
+    <dimen name="card_item_width">156dp</dimen>
+    <dimen name="card_item_height">88dp</dimen>
 </resources>
