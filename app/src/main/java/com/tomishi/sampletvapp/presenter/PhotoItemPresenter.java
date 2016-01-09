@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.tomishi.sampletvapp.R;
 
 public class PhotoItemPresenter extends Presenter {
@@ -32,7 +33,13 @@ public class PhotoItemPresenter extends Presenter {
         ImageView view = (ImageView)viewHolder.view;
 
         Context context = view.getContext();
-        view.setImageDrawable(context.getDrawable(id));
+        int width = context.getResources().getDimensionPixelSize(R.dimen.card_item_width);
+        int height = context.getResources().getDimensionPixelSize(R.dimen.card_item_height);
+
+        Picasso.with(context)
+                .load(id)
+                .resize(width, height)
+                .into(view);
     }
 
     @Override
