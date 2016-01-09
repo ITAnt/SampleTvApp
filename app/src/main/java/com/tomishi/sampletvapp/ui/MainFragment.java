@@ -63,7 +63,7 @@ public class MainFragment extends BrowseFragment {
     }
 
     private void loadGridItemRow() {
-        HeaderItem header = new HeaderItem(0, "GridItemPresenter");
+        HeaderItem header = new HeaderItem(0, "GridItem");
 
         GridItemPresenter presenter = new GridItemPresenter(getActivity().getApplicationContext());
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenter);
@@ -75,17 +75,17 @@ public class MainFragment extends BrowseFragment {
     }
 
     private void loadCardItemRow() {
-        HeaderItem header1 = new HeaderItem(1, "CardItemPresenter(TYPE_MAIN_ONLY)");
+        HeaderItem header1 = new HeaderItem(1, "CardItem(TYPE_MAIN_ONLY)");
         ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_MAIN_ONLY)
         );
 
-        HeaderItem header2 = new HeaderItem(2, "CardItemPresenter(TYPE_INFO_OVER)");
+        HeaderItem header2 = new HeaderItem(2, "CardItem(TYPE_INFO_OVER)");
         ArrayObjectAdapter adapter2 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_OVER)
         );
 
-        HeaderItem header3 = new HeaderItem(3, "CardItemPresenter(TYPE_INFO_UNDER)");
+        HeaderItem header3 = new HeaderItem(3, "CardItem(TYPE_INFO_UNDER)");
         ArrayObjectAdapter adapter3 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_UNDER)
         );
