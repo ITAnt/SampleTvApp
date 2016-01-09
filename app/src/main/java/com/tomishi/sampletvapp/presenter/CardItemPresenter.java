@@ -35,6 +35,11 @@ public class CardItemPresenter extends Presenter {
         cardView.setFocusable(true);
         cardView.setFocusableInTouchMode(true);
         cardView.setBackgroundColor(context.getResources().getColor(R.color.fastlane_background));
+
+        int bgColor = mCardType == BaseCardView.CARD_TYPE_INFO_OVER ?
+                R.color.default_background_trans : R.color.default_background;
+        cardView.setInfoAreaBackgroundColor(context.getResources().getColor(bgColor));
+
         int width = context.getResources().getDimensionPixelSize(R.dimen.card_item_width);
         int height = context.getResources().getDimensionPixelSize(R.dimen.card_item_height);
         cardView.setMainImageDimensions(width, height);
