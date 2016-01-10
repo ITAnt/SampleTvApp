@@ -1,5 +1,11 @@
 package com.tomishi.sampletvapp.ui;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v17.leanback.app.DetailsFragment;
 import android.support.v17.leanback.widget.Action;
@@ -63,6 +69,14 @@ public class VideoDetailsFragment extends DetailsFragment {
     private void setupDetailRow() {
         DetailsOverviewRow row = new DetailsOverviewRow(mSelectedVideo);
 
+        // setup logo
+        if (mSelectedVideo.getResourceId() > 0) {
+            Context context = getActivity().getBaseContext();
+            String videoPath = "android.resource://" +
+                    context.getPackageName() + "/" + mSelectedVideo.getResourceId();
+            new LogoTask(getActivity().getBaseContext(), row).execute(videoPath);
+        }
+
         // setup action list
         SparseArrayObjectAdapter sparseArrayObjectAdapter = new SparseArrayObjectAdapter();
         for (int i = 0; i<10; i++){
@@ -79,6 +93,43 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         HeaderItem header = new HeaderItem(0, "Related Videos");
         mAdapter.add(new ListRow(header, listRowAdapter));
+    }
+
+    private class LogoTask extends AsyncTask<String, Void, Bitmap> {
+        private DetailsOverviewRow mDetailRow;
+        private Context mContext;
+
+        public LogoTask(Context context, DetailsOverviewRow detail) {
+            mContext = context;
+            mDetailRow = detail;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            String videoPath = params[0];
+            Log.d(TAG, "ThumbTask doInBackground:" + videoPath);
+
+            MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+            retriever.setDataSource(mContext, Uri.parse(videoPath));
+            Bitmap bitmap = retriever.getFrameAtTime();
+
+            // resize
+            int width = 300;
+            int height = 300;
+            int srcW = bitmap.getWidth();
+            int srcH = bitmap.getHeight();
+            if (srcW > srcH) {
+                height = srcH * width / srcW;
+            } else {
+                width = srcW * height / srcH;
+            }
+            return ThumbnailUtils.extractThumbnail(bitmap, width, height, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            Log.d(TAG, "ThumbTask onPostExecute");
+            mDetailRow.setImageBitmap(mContext, result);
+        }
     }
 
     private final class ItemViewClickedListener implements OnItemViewClickedListener {
