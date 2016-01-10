@@ -71,9 +71,9 @@ public class MainFragment extends BrowseFragment {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
 
         int index = 0;
+        index += loadGridItemRow(index);
         index += loadPhotoItemRow(index);
         index += loadMovieItemRow(index);
-        index += loadGridItemRow(index);
         index += loadCardItemRow(index);
 
         /* set */
