@@ -70,17 +70,18 @@ public class MainFragment extends BrowseFragment {
     private void loadRows() {
         mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
 
-        loadGridItemRow();  // index 0
-        loadCardItemRow();  // index 1 - 3
-        loadPhotoItemRow(); // index 4
-        loadMovieItemRow(); // index 5
+        int index = 0;
+        index += loadPhotoItemRow(index);
+        index += loadMovieItemRow(index);
+        index += loadGridItemRow(index);
+        index += loadCardItemRow(index);
 
         /* set */
         setAdapter(mRowsAdapter);
     }
 
-    private void loadGridItemRow() {
-        HeaderItem header = new HeaderItem(0, "GridItem");
+    private int loadGridItemRow(int index) {
+        HeaderItem header = new HeaderItem(index, "GridItem");
 
         GridItemPresenter presenter = new GridItemPresenter(getActivity().getApplicationContext());
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenter);
@@ -89,20 +90,23 @@ public class MainFragment extends BrowseFragment {
         adapter.add("ITEM 3");
 
         mRowsAdapter.add(new ListRow(header, adapter));
+
+        return 1;
     }
 
-    private void loadCardItemRow() {
-        HeaderItem header1 = new HeaderItem(1, "CardItem(TYPE_MAIN_ONLY)");
+    private int loadCardItemRow(int startIndex) {
+        int index = startIndex;
+        HeaderItem header1 = new HeaderItem(index++, "CardItem(TYPE_MAIN_ONLY)");
         ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_MAIN_ONLY)
         );
 
-        HeaderItem header2 = new HeaderItem(2, "CardItem(TYPE_INFO_OVER)");
+        HeaderItem header2 = new HeaderItem(index++, "CardItem(TYPE_INFO_OVER)");
         ArrayObjectAdapter adapter2 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_OVER)
         );
 
-        HeaderItem header3 = new HeaderItem(3, "CardItem(TYPE_INFO_UNDER)");
+        HeaderItem header3 = new HeaderItem(index++, "CardItem(TYPE_INFO_UNDER)");
         ArrayObjectAdapter adapter3 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_UNDER)
         );
@@ -115,10 +119,12 @@ public class MainFragment extends BrowseFragment {
         mRowsAdapter.add(new ListRow(header1, adapter1));
         mRowsAdapter.add(new ListRow(header2, adapter2));
         mRowsAdapter.add(new ListRow(header3, adapter3));
+
+        return index - startIndex;
     }
 
-    private void loadPhotoItemRow() {
-        HeaderItem header = new HeaderItem(4, "PhotoItem");
+    private int loadPhotoItemRow(int index) {
+        HeaderItem header = new HeaderItem(index, "PhotoItem");
 
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(new PhotoItemPresenter());
         adapter.add(new Photo(R.drawable.photo1));
@@ -126,10 +132,12 @@ public class MainFragment extends BrowseFragment {
         adapter.add(new Photo(R.drawable.photo3));
 
         mRowsAdapter.add(new ListRow(header, adapter));
+
+        return 1;
     }
 
-    private void loadMovieItemRow() {
-        HeaderItem header = new HeaderItem(5, "VideoItem");
+    private int loadMovieItemRow(int index) {
+        HeaderItem header = new HeaderItem(index, "VideoItem");
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(new CardItemPresenter());
 
         List<Video> videos = VideoProvider.getVideos();
@@ -137,6 +145,7 @@ public class MainFragment extends BrowseFragment {
 
         mRowsAdapter.add(new ListRow(header, adapter));
 
+        return 1;
     }
 
     private void setupEventListeners() {
