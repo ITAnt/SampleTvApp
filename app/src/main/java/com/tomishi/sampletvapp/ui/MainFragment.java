@@ -16,12 +16,15 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.tomishi.sampletvapp.R;
+import com.tomishi.sampletvapp.data.VideoProvider;
 import com.tomishi.sampletvapp.manager.PicassoBackgroundManager;
 import com.tomishi.sampletvapp.model.Photo;
 import com.tomishi.sampletvapp.model.Video;
 import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.GridItemPresenter;
 import com.tomishi.sampletvapp.presenter.PhotoItemPresenter;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -103,15 +106,10 @@ public class MainFragment extends BrowseFragment {
                 new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_UNDER)
         );
 
-        for (int i = 0; i < 10; i++) {
-            Video video = new Video();
-            video.setId(i);
-            video.setTitle("title" + i);
-            video.setStudio("studio" + i);
-            adapter1.add(video);
-            adapter2.add(video);
-            adapter3.add(video);
-        }
+        List<Video> videos = VideoProvider.getDummpyVideos();
+        adapter1.addAll(0, videos);
+        adapter2.addAll(0, videos);
+        adapter3.addAll(0, videos);
 
         mRowsAdapter.add(new ListRow(header1, adapter1));
         mRowsAdapter.add(new ListRow(header2, adapter2));
