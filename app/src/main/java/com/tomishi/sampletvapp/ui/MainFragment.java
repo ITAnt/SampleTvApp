@@ -73,6 +73,7 @@ public class MainFragment extends BrowseFragment {
         loadGridItemRow();  // index 0
         loadCardItemRow();  // index 1 - 3
         loadPhotoItemRow(); // index 4
+        loadMovieItemRow(); // index 5
 
         /* set */
         setAdapter(mRowsAdapter);
@@ -125,6 +126,17 @@ public class MainFragment extends BrowseFragment {
         adapter.add(new Photo(R.drawable.photo3));
 
         mRowsAdapter.add(new ListRow(header, adapter));
+    }
+
+    private void loadMovieItemRow() {
+        HeaderItem header = new HeaderItem(5, "VideoItem");
+        ArrayObjectAdapter adapter = new ArrayObjectAdapter(new CardItemPresenter());
+
+        List<Video> videos = VideoProvider.getVideos();
+        adapter.addAll(0, videos);
+
+        mRowsAdapter.add(new ListRow(header, adapter));
+
     }
 
     private void setupEventListeners() {
