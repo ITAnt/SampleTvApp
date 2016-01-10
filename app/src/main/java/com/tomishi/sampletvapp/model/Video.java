@@ -1,6 +1,8 @@
 package com.tomishi.sampletvapp.model;
 
-public class Video  {
+import java.io.Serializable;
+
+public class Video implements Serializable {
     private static final String TAG = Video.class.getSimpleName();
 
     private long mId;

@@ -1,6 +1,7 @@
 package com.tomishi.sampletvapp.ui;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -8,6 +9,7 @@ import android.support.v17.leanback.widget.BaseCardView;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
+import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.OnItemViewSelectedListener;
 import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
@@ -150,6 +152,7 @@ public class MainFragment extends BrowseFragment {
 
     private void setupEventListeners() {
         setOnItemViewSelectedListener(new ItemViewSelectedListener());
+        setOnItemViewClickedListener(new ItemViewClickedListener());
     }
 
     private final class ItemViewSelectedListener implements OnItemViewSelectedListener {
@@ -162,6 +165,19 @@ public class MainFragment extends BrowseFragment {
                 mBackgroundManager.updateBackground(((Photo)item).getId());
             } else {
                 mBackgroundManager.updateBackground(0);
+            }
+        }
+    }
+
+    private final class ItemViewClickedListener implements OnItemViewClickedListener {
+        @Override
+        public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item,
+                                   RowPresenter.ViewHolder rowViewHolder, Row row) {
+            if (item instanceof Video) {
+                Video video = (Video)item;
+                Intent intent = new Intent(getActivity(), VideoDetailsActivity.class);
+                intent.putExtra(VideoDetailsActivity.VIDEO, video);
+                startActivity(intent);
             }
         }
     }
