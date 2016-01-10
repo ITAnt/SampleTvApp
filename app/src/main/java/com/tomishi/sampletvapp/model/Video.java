@@ -6,6 +6,8 @@ public class Video  {
     private long mId;
     private String mTitle;
     private String mStudio;
+    private String mDescription;
+    private int mResourceId;
 
     public Video() {
     }
@@ -34,11 +36,29 @@ public class Video  {
         this.mStudio = studio;
     }
 
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
+    }
+
+    public int getResourceId () {
+        return mResourceId;
+    }
+
+    public void setResourceId(int id) {
+        mResourceId = id;
+    }
+
     @Override
     public String toString() {
         return "Video{" +
                 "id=" + mId +
+                "resId=" + mResourceId +
                 ",title='" + mTitle + '\'' +
+                ",description='" + mDescription + '\'' +
                 '}';
     }
 }
