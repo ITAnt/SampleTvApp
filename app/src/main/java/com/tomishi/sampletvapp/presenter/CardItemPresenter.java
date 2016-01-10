@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.v17.leanback.widget.BaseCardView;
@@ -85,12 +86,16 @@ public class CardItemPresenter extends Presenter {
     }
 
     private class VideoThumbnailTask extends AsyncTask<String, Void, Bitmap> {
+        private final int mWidth;
+        private final int mHeight;
         private ImageCardView mCardView;
         private Context mContext;
 
         public VideoThumbnailTask(ImageCardView view) {
             mCardView = view;
             mContext = view.getContext();
+            mWidth = mContext.getResources().getDimensionPixelSize(R.dimen.card_item_width);
+            mHeight = mContext.getResources().getDimensionPixelSize(R.dimen.card_item_height);
         }
 
         @Override
@@ -100,7 +105,10 @@ public class CardItemPresenter extends Presenter {
 
             MediaMetadataRetriever retriever = new MediaMetadataRetriever();
             retriever.setDataSource(mContext, Uri.parse(videoPath));
-            return retriever.getFrameAtTime();
+            Bitmap bitmap = retriever.getFrameAtTime();
+
+            // resize
+            return ThumbnailUtils.extractThumbnail(bitmap, mWidth, mHeight, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
         }
 
         protected void onPostExecute(Bitmap result) {
