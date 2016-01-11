@@ -7,6 +7,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v17.leanback.app.BackgroundManager;
 import android.support.v17.leanback.app.DetailsFragment;
 import android.support.v17.leanback.widget.Action;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -33,6 +34,7 @@ public class VideoDetailsFragment extends DetailsFragment {
     private String TAG = VideoDetailsFragment.class.getSimpleName();
     private Video mSelectedVideo;
     private ArrayObjectAdapter mAdapter;
+    private BackgroundManager mBackgroundManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,9 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         mSelectedVideo = (Video)getActivity().getIntent()
                 .getSerializableExtra(VideoDetailsActivity.VIDEO);
+
+        mBackgroundManager = BackgroundManager.getInstance(getActivity());
+        mBackgroundManager.attach(getActivity().getWindow());
 
         if (mSelectedVideo != null) {
             setupAdapter();
@@ -129,6 +134,7 @@ public class VideoDetailsFragment extends DetailsFragment {
         protected void onPostExecute(Bitmap result) {
             Log.d(TAG, "ThumbTask onPostExecute");
             mDetailRow.setImageBitmap(mContext, result);
+            mBackgroundManager.setBitmap(result);
         }
     }
 
