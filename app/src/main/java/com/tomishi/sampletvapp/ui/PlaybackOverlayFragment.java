@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.ControlButtonPresenterSelector;
+import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.PlaybackControlsRow;
 import android.support.v17.leanback.widget.PlaybackControlsRowPresenter;
 import android.util.Log;
 
+import com.tomishi.sampletvapp.data.VideoProvider;
 import com.tomishi.sampletvapp.model.Video;
+import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.VideoDetailsDescriptionPresenter;
 
 public class PlaybackOverlayFragment extends android.support.v17.leanback.app.PlaybackOverlayFragment {
@@ -59,6 +62,7 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         mRowsAdapter = new ArrayObjectAdapter(ps);
 
         addPlaybackControlsRow();
+        addOtherRows();
 
         setAdapter(mRowsAdapter);
     }
@@ -102,5 +106,13 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         mSecondaryActionsAdapter.add(mHighQualityAction);
         mSecondaryActionsAdapter.add(mClosedCaptioningAction);
         mSecondaryActionsAdapter.add(mMoreActions);
+    }
+
+    private void addOtherRows() {
+        ArrayObjectAdapter listRowAdapter = new ArrayObjectAdapter(new CardItemPresenter());
+        listRowAdapter.addAll(0, VideoProvider.getDummpyVideos());
+
+        HeaderItem header = new HeaderItem(0, "Related Videos");
+        mRowsAdapter.add(new ListRow(header, listRowAdapter));
     }
 }
