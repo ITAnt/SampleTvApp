@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.tomishi.sampletvapp.R;
 import com.tomishi.sampletvapp.model.Video;
+import com.tomishi.sampletvapp.util.Utils;
 
 public class CardItemPresenter extends Presenter {
 
@@ -66,8 +67,7 @@ public class CardItemPresenter extends Presenter {
 
         if (video.getResourceId() > 0) {
             mThumbTask = new VideoThumbnailTask(cardView);
-            String videoPath = "android.resource://" + cardView.getContext().getPackageName() + "/" + video.getResourceId();
-            mThumbTask.execute(videoPath);
+            mThumbTask.execute(Utils.getFilePath(cardView.getContext(), video.getResourceId()));
         }
     }
 

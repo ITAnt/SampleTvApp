@@ -29,6 +29,7 @@ import com.tomishi.sampletvapp.data.VideoProvider;
 import com.tomishi.sampletvapp.model.Video;
 import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.VideoDetailsDescriptionPresenter;
+import com.tomishi.sampletvapp.util.Utils;
 
 public class VideoDetailsFragment extends DetailsFragment {
 
@@ -80,8 +81,7 @@ public class VideoDetailsFragment extends DetailsFragment {
         // setup logo
         if (mSelectedVideo.getResourceId() > 0) {
             Context context = getActivity().getBaseContext();
-            String videoPath = "android.resource://" +
-                    context.getPackageName() + "/" + mSelectedVideo.getResourceId();
+            String videoPath = Utils.getFilePath(context, mSelectedVideo.getResourceId());
             new LogoTask(getActivity().getBaseContext(), row).execute(videoPath);
         }
 
