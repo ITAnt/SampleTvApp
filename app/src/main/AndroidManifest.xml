@@ -20,6 +20,7 @@
 
         <activity android:name=".ui.ErrorActivity" />
 
+        <activity android:name=".ui.PlaybackOverlayActivity"/>
     </application>
 
 </manifest>

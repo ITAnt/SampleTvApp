@@ -1,6 +1,7 @@
 package com.tomishi.sampletvapp.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
@@ -35,6 +36,8 @@ public class VideoDetailsFragment extends DetailsFragment {
     private Video mSelectedVideo;
     private ArrayObjectAdapter mAdapter;
     private BackgroundManager mBackgroundManager;
+
+    private static final int TYPE_PLAY = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,8 @@ public class VideoDetailsFragment extends DetailsFragment {
 
         // setup action list
         SparseArrayObjectAdapter sparseArrayObjectAdapter = new SparseArrayObjectAdapter();
-        for (int i = 0; i<10; i++){
+        sparseArrayObjectAdapter.set(0, new Action(TYPE_PLAY, "Play Video"));
+        for (int i = 1; i < 5; i++){
             sparseArrayObjectAdapter.set(i, new Action(i, "label1", "label2"));
         }
         row.setActionsAdapter(sparseArrayObjectAdapter);
@@ -143,7 +147,24 @@ public class VideoDetailsFragment extends DetailsFragment {
         public void onItemClicked(Presenter.ViewHolder itemViewHolder, Object item,
                                    RowPresenter.ViewHolder rowViewHolder, Row row) {
             if (item instanceof Action) {
-                Log.i(TAG, "selected action");
+                Log.i(TAG, "Action item is selected");
+                Action action = (Action)item;
+                if (action.getId() == TYPE_PLAY) {
+                    playVideo(mSelectedVideo);
+                }
+
+            } else if (item instanceof Video) {
+                Log.i(TAG, "Video item is selected ");
+                Video video = (Video)item;
+                playVideo(video);
+            }
+        }
+
+        private void playVideo(Video video) {
+            if (video.getResourceId() > 0) {
+                Intent intent = new Intent(getActivity(), PlaybackOverlayActivity.class);
+                intent.putExtra(VideoDetailsActivity.VIDEO, video);
+                startActivity(intent);
             }
         }
     }
