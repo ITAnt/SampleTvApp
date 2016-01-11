@@ -18,6 +18,8 @@
 
         <activity android:name=".ui.VideoDetailsActivity"/>
 
+        <activity android:name=".ui.ErrorActivity" />
+
     </application>
 
 </manifest>

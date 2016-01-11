@@ -87,7 +87,7 @@ public class MainFragment extends BrowseFragment {
 
         GridItemPresenter presenter = new GridItemPresenter(getActivity().getApplicationContext());
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenter);
-        adapter.add("ITEM 1");
+        adapter.add("ErrorFragment");
         adapter.add("ITEM 2");
         adapter.add("ITEM 3");
 
@@ -178,6 +178,11 @@ public class MainFragment extends BrowseFragment {
                 Intent intent = new Intent(getActivity(), VideoDetailsActivity.class);
                 intent.putExtra(VideoDetailsActivity.VIDEO, video);
                 startActivity(intent);
+            } else if (item instanceof String) {
+                if (item == "ErrorFragment") {
+                    Intent intent = new Intent(getActivity(), ErrorActivity.class);
+                    startActivity(intent);
+                }
             }
         }
     }
