@@ -1,7 +1,9 @@
 package com.tomishi.sampletvapp.ui;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -15,7 +17,10 @@ import android.support.v17.leanback.widget.Presenter;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.tomishi.sampletvapp.R;
 import com.tomishi.sampletvapp.data.VideoProvider;
@@ -154,6 +159,22 @@ public class MainFragment extends BrowseFragment {
     private void setupEventListeners() {
         setOnItemViewSelectedListener(new ItemViewSelectedListener());
         setOnItemViewClickedListener(new ItemViewClickedListener());
+
+        setOnSearchClickedListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "RECORD_AUDIO permission is not granted",
+                            Toast.LENGTH_SHORT)
+                            .show();
+                    return;
+                }
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private final class ItemViewSelectedListener implements OnItemViewSelectedListener {
