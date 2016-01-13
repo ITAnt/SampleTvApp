@@ -2,6 +2,7 @@ package com.tomishi.sampletvapp.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v17.leanback.app.GuidedStepFragment;
 import android.util.Log;
 
 import com.tomishi.sampletvapp.R;
@@ -16,5 +17,8 @@ public class GuidedStepActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
+        if (null == savedInstanceState) {
+            GuidedStepFragment.add(getFragmentManager(), new GuidedFirstStepFragment());
+        }
     }
 }
