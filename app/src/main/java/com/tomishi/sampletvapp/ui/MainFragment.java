@@ -4,7 +4,9 @@ package com.tomishi.sampletvapp.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.BaseCardView;
@@ -42,6 +44,7 @@ public class MainFragment extends BrowseFragment {
     private static final String TAG = MainFragment.class.getSimpleName();
     private ArrayObjectAdapter mRowsAdapter;
     private PicassoBackgroundManager mBackgroundManager;
+    private final int REQUEST_PERMISSION_RECORD_AUDIO = 0;
 
     public MainFragment() {
         // Required empty public constructor
@@ -165,16 +168,34 @@ public class MainFragment extends BrowseFragment {
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECORD_AUDIO)
                         != PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity().getApplicationContext(),
-                            "RECORD_AUDIO permission is not granted",
-                            Toast.LENGTH_SHORT)
-                            .show();
-                    return;
+
+                    // check version to suppress warning for min api level
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(
+                                new String[]{Manifest.permission.RECORD_AUDIO},
+                                REQUEST_PERMISSION_RECORD_AUDIO);
+                    } else {
+                        // can't happen
+                    }
+
+                } else {
+                    Intent intent = new Intent(getActivity(), SearchActivity.class);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_PERMISSION_RECORD_AUDIO) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // launch SearchActivity
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            } else {
+            }
+        }
     }
 
     private final class ItemViewSelectedListener implements OnItemViewSelectedListener {
