@@ -21,6 +21,8 @@
         <activity android:name=".ui.ErrorActivity" />
 
         <activity android:name=".ui.PlaybackOverlayActivity"/>
+
+        <activity android:name=".ui.GuidedStepActivity"/>
     </application>
 
 </manifest>

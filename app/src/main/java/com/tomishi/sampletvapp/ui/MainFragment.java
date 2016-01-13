@@ -88,7 +88,7 @@ public class MainFragment extends BrowseFragment {
         GridItemPresenter presenter = new GridItemPresenter(getActivity().getApplicationContext());
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenter);
         adapter.add("ErrorFragment");
-        adapter.add("ITEM 2");
+        adapter.add("GuidedStepFragment");
         adapter.add("ITEM 3");
 
         mRowsAdapter.add(new ListRow(header, adapter));
@@ -182,6 +182,10 @@ public class MainFragment extends BrowseFragment {
                 if (item == "ErrorFragment") {
                     Intent intent = new Intent(getActivity(), ErrorActivity.class);
                     startActivity(intent);
+                } else if (item == "GuidedStepFragment") {
+                    Intent intent = new Intent(getActivity(), GuidedStepActivity.class);
+                    startActivity(intent);
+
                 }
             }
         }
