@@ -23,6 +23,9 @@
         <activity android:name=".ui.PlaybackOverlayActivity"/>
 
         <activity android:name=".ui.GuidedStepActivity"/>
+
+        <service android:name=".service.RecommendationService"/>
+
     </application>
 
 </manifest>

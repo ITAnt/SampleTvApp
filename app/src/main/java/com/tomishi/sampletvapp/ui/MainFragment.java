@@ -25,6 +25,7 @@ import com.tomishi.sampletvapp.model.Video;
 import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.GridItemPresenter;
 import com.tomishi.sampletvapp.presenter.PhotoItemPresenter;
+import com.tomishi.sampletvapp.service.RecommendationService;
 
 import java.util.List;
 
@@ -89,7 +90,7 @@ public class MainFragment extends BrowseFragment {
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenter);
         adapter.add("ErrorFragment");
         adapter.add("GuidedStepFragment");
-        adapter.add("ITEM 3");
+        adapter.add("Recommendation");
 
         mRowsAdapter.add(new ListRow(header, adapter));
 
@@ -185,7 +186,9 @@ public class MainFragment extends BrowseFragment {
                 } else if (item == "GuidedStepFragment") {
                     Intent intent = new Intent(getActivity(), GuidedStepActivity.class);
                     startActivity(intent);
-
+                } else if (item == "Recommendation") {
+                    Intent intent = new Intent(getActivity(), RecommendationService.class);
+                    getActivity().startService(intent);
                 }
             }
         }
