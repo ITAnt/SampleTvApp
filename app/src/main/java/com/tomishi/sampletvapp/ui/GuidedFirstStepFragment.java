@@ -37,6 +37,7 @@ public class GuidedFirstStepFragment extends GuidedStepFragment {
 
         switch ((int) action.getId()){
             case ACTION_CONTINUE:
+                GuidedStepFragment.add(getFragmentManager(), new GuidedSecondStepFragment());
                 break;
             case ACTION_BACK:
                 getActivity().finish();
