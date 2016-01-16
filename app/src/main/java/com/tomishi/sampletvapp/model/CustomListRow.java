@@ -1,0 +1,34 @@
+package com.tomishi.sampletvapp.model;
+
+import android.support.v17.leanback.widget.HeaderItem;
+import android.support.v17.leanback.widget.ListRow;
+import android.support.v17.leanback.widget.ObjectAdapter;
+
+public class CustomListRow extends ListRow {
+
+    private static final String TAG = CustomListRow.class.getSimpleName();
+    private int mNumRows = 1;
+
+    public CustomListRow(HeaderItem header, ObjectAdapter adapter, int numRows) {
+        super(header, adapter);
+        mNumRows = numRows;
+    }
+
+    public CustomListRow(HeaderItem header, ObjectAdapter adapter) {
+        super(header, adapter);
+    }
+
+    public CustomListRow(long id, HeaderItem header, ObjectAdapter adapter) {
+        super(id, header, adapter);
+    }
+
+    public CustomListRow(ObjectAdapter adapter) {
+        super(adapter);
+    }
+
+    public int getNumRows() {
+        return mNumRows;
+    }
+
+}
+

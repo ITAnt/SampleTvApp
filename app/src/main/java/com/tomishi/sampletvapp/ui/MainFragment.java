@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.BaseCardView;
+import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
 import android.support.v17.leanback.widget.ListRowPresenter;
@@ -30,10 +31,12 @@ import android.widget.Toast;
 import com.tomishi.sampletvapp.R;
 import com.tomishi.sampletvapp.data.VideoProvider;
 import com.tomishi.sampletvapp.manager.PicassoBackgroundManager;
+import com.tomishi.sampletvapp.model.CustomListRow;
 import com.tomishi.sampletvapp.model.IconHeaderItem;
 import com.tomishi.sampletvapp.model.Photo;
 import com.tomishi.sampletvapp.model.Video;
 import com.tomishi.sampletvapp.presenter.CardItemPresenter;
+import com.tomishi.sampletvapp.presenter.CustomListRowPresenter;
 import com.tomishi.sampletvapp.presenter.GridItemPresenter;
 import com.tomishi.sampletvapp.presenter.IconHeaderItemPresenter;
 import com.tomishi.sampletvapp.presenter.PhotoItemPresenter;
@@ -91,7 +94,10 @@ public class MainFragment extends BrowseFragment {
     }
 
     private void loadRows() {
-        mRowsAdapter = new ArrayObjectAdapter(new ListRowPresenter());
+        ClassPresenterSelector selector = new ClassPresenterSelector();
+        selector.addClassPresenter(ListRow.class, new ListRowPresenter());
+        selector.addClassPresenter(CustomListRow.class, new CustomListRowPresenter());
+        mRowsAdapter = new ArrayObjectAdapter(selector);
 
         int index = 0;
         index += loadGridItemRow(index);
@@ -135,14 +141,24 @@ public class MainFragment extends BrowseFragment {
                 new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_UNDER)
         );
 
+        HeaderItem header4 = new IconHeaderItem(index++, "CustomListRow(2 Line)", R.drawable.ic_play);
+        ArrayObjectAdapter adapter4 = new ArrayObjectAdapter(
+                new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_UNDER)
+        );
+
         List<Video> videos = VideoProvider.getDummpyVideos();
         adapter1.addAll(0, videos);
         adapter2.addAll(0, videos);
         adapter3.addAll(0, videos);
+        adapter4.addAll(0, videos);
 
+        // ListRow
         mRowsAdapter.add(new ListRow(header1, adapter1));
         mRowsAdapter.add(new ListRow(header2, adapter2));
         mRowsAdapter.add(new ListRow(header3, adapter3));
+
+        // CustomListRow
+        mRowsAdapter.add(new CustomListRow(header4, adapter4, 2));
 
         return index - startIndex;
     }
