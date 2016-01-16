@@ -14,6 +14,7 @@ import android.support.v17.leanback.widget.Action;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.DetailsOverviewRow;
+import android.support.v17.leanback.widget.DetailsOverviewRowPresenter;
 import android.support.v17.leanback.widget.FullWidthDetailsOverviewRowPresenter;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
@@ -64,11 +65,17 @@ public class VideoDetailsFragment extends DetailsFragment {
     private void setupAdapter() {
         ClassPresenterSelector classPresenterSelector = new ClassPresenterSelector();
 
-        FullWidthDetailsOverviewRowPresenter detailPresenter =
-                new FullWidthDetailsOverviewRowPresenter(new VideoDetailsDescriptionPresenter());
-        detailPresenter.setInitialState(FullWidthDetailsOverviewRowPresenter.STATE_HALF);
+        Presenter presenter;
+        if (mSelectedVideo.getId() % 2 == 0) {
+            FullWidthDetailsOverviewRowPresenter detailPresenter =
+                    new FullWidthDetailsOverviewRowPresenter(new VideoDetailsDescriptionPresenter());
+            detailPresenter.setInitialState(FullWidthDetailsOverviewRowPresenter.STATE_HALF);
+            presenter = detailPresenter;
+        } else {
+            presenter = new DetailsOverviewRowPresenter(new VideoDetailsDescriptionPresenter());
+        }
 
-        classPresenterSelector.addClassPresenter(DetailsOverviewRow.class, detailPresenter);
+        classPresenterSelector.addClassPresenter(DetailsOverviewRow.class, presenter);
         classPresenterSelector.addClassPresenter(ListRow.class, new ListRowPresenter());
 
         mAdapter = new ArrayObjectAdapter(classPresenterSelector);
