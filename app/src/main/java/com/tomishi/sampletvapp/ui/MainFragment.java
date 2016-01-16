@@ -118,6 +118,7 @@ public class MainFragment extends BrowseFragment {
         adapter.add("GuidedStepFragment");
         adapter.add("Recommendation");
         adapter.add("Spinner");
+        adapter.add("VerticalGridFragment");
 
         mRowsAdapter.add(new ListRow(header, adapter));
 
@@ -262,6 +263,9 @@ public class MainFragment extends BrowseFragment {
                     getActivity().startService(intent);
                 } else if (item == "Spinner") {
                     new ShowSpinnerTask().execute();
+                } else if (item == "VerticalGridFragment") {
+                    Intent intent = new Intent(getActivity(), VerticalGridActivity.class);
+                    startActivity(intent);
                 }
             }
         }
