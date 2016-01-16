@@ -4,8 +4,10 @@ package com.tomishi.sampletvapp.ui;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v17.leanback.app.BrowseFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
@@ -99,6 +101,7 @@ public class MainFragment extends BrowseFragment {
         adapter.add("ErrorFragment");
         adapter.add("GuidedStepFragment");
         adapter.add("Recommendation");
+        adapter.add("Spinner");
 
         mRowsAdapter.add(new ListRow(header, adapter));
 
@@ -231,8 +234,33 @@ public class MainFragment extends BrowseFragment {
                 } else if (item == "Recommendation") {
                     Intent intent = new Intent(getActivity(), RecommendationService.class);
                     getActivity().startService(intent);
+                } else if (item == "Spinner") {
+                    new ShowSpinnerTask().execute();
                 }
             }
+        }
+    }
+
+    private class ShowSpinnerTask extends AsyncTask<Void, Void, Void> {
+        SpinnerFragment mSpinnerFragment;
+
+        @Override
+        protected void onPreExecute() {
+            mSpinnerFragment = new SpinnerFragment();
+            getFragmentManager().beginTransaction().add(R.id.main_browse_fragment, mSpinnerFragment).commit();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            // Do some background process here.
+            // It just waits 5 sec in this Tutorial
+            SystemClock.sleep(5000);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            getFragmentManager().beginTransaction().remove(mSpinnerFragment).commit();
         }
     }
 }
