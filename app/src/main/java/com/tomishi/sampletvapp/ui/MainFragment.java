@@ -18,6 +18,7 @@ import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.OnItemViewSelectedListener;
 import android.support.v17.leanback.widget.Presenter;
+import android.support.v17.leanback.widget.PresenterSelector;
 import android.support.v17.leanback.widget.Row;
 import android.support.v17.leanback.widget.RowPresenter;
 import android.support.v4.app.Fragment;
@@ -29,10 +30,12 @@ import android.widget.Toast;
 import com.tomishi.sampletvapp.R;
 import com.tomishi.sampletvapp.data.VideoProvider;
 import com.tomishi.sampletvapp.manager.PicassoBackgroundManager;
+import com.tomishi.sampletvapp.model.IconHeaderItem;
 import com.tomishi.sampletvapp.model.Photo;
 import com.tomishi.sampletvapp.model.Video;
 import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.GridItemPresenter;
+import com.tomishi.sampletvapp.presenter.IconHeaderItemPresenter;
 import com.tomishi.sampletvapp.presenter.PhotoItemPresenter;
 import com.tomishi.sampletvapp.service.RecommendationService;
 
@@ -78,6 +81,13 @@ public class MainFragment extends BrowseFragment {
         setBrandColor(getResources().getColor(R.color.fastlane_background));
         // set search icon color
         setSearchAffordanceColor(getResources().getColor(R.color.search_opaque));
+
+        setHeaderPresenterSelector(new PresenterSelector() {
+            @Override
+            public Presenter getPresenter(Object o) {
+                return new IconHeaderItemPresenter();
+            }
+        });
     }
 
     private void loadRows() {
@@ -94,7 +104,7 @@ public class MainFragment extends BrowseFragment {
     }
 
     private int loadGridItemRow(int index) {
-        HeaderItem header = new HeaderItem(index, "GridItem");
+        HeaderItem header = new IconHeaderItem(index, "GridItem", R.drawable.ic_add);
 
         GridItemPresenter presenter = new GridItemPresenter(getActivity().getApplicationContext());
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(presenter);
@@ -110,17 +120,17 @@ public class MainFragment extends BrowseFragment {
 
     private int loadCardItemRow(int startIndex) {
         int index = startIndex;
-        HeaderItem header1 = new HeaderItem(index++, "CardItem(TYPE_MAIN_ONLY)");
+        HeaderItem header1 = new IconHeaderItem(index++, "CardItem(TYPE_MAIN_ONLY)", R.drawable.ic_play);
         ArrayObjectAdapter adapter1 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_MAIN_ONLY)
         );
 
-        HeaderItem header2 = new HeaderItem(index++, "CardItem(TYPE_INFO_OVER)");
+        HeaderItem header2 = new IconHeaderItem(index++, "CardItem(TYPE_INFO_OVER)", R.drawable.ic_play);
         ArrayObjectAdapter adapter2 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_OVER)
         );
 
-        HeaderItem header3 = new HeaderItem(index++, "CardItem(TYPE_INFO_UNDER)");
+        HeaderItem header3 = new IconHeaderItem(index++, "CardItem(TYPE_INFO_UNDER)", R.drawable.ic_play);
         ArrayObjectAdapter adapter3 = new ArrayObjectAdapter(
                 new CardItemPresenter(BaseCardView.CARD_TYPE_INFO_UNDER)
         );
@@ -138,7 +148,7 @@ public class MainFragment extends BrowseFragment {
     }
 
     private int loadPhotoItemRow(int index) {
-        HeaderItem header = new HeaderItem(index, "PhotoItem");
+        HeaderItem header = new IconHeaderItem(index, "PhotoItem", R.drawable.ic_add);
 
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(new PhotoItemPresenter());
         adapter.add(new Photo(R.drawable.photo1));
@@ -151,7 +161,7 @@ public class MainFragment extends BrowseFragment {
     }
 
     private int loadMovieItemRow(int index) {
-        HeaderItem header = new HeaderItem(index, "VideoItem");
+        HeaderItem header = new IconHeaderItem(index, "VideoItem", R.drawable.ic_play);
         ArrayObjectAdapter adapter = new ArrayObjectAdapter(new CardItemPresenter());
 
         List<Video> videos = VideoProvider.getVideos();
