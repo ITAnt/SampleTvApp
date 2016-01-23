@@ -22,9 +22,10 @@
         android:layout_width="24dp"
         android:layout_height="24dp" />
 
-    <TextView
+    <android.support.v17.leanback.widget.RowHeaderView
         android:id="@+id/header_label"
-        android:layout_marginTop="6dp"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?headerStyle"
+        />
 </android.support.v17.leanback.widget.NonOverlappingLinearLayout>
