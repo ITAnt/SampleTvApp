@@ -26,7 +26,7 @@ public class IconHeaderItemPresenter  extends RowHeaderPresenter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view = inflater.inflate(R.layout.icon_header_item, null);
-
+        setViewAlpha(view, 0);
         return new ViewHolder(view);
     }
 
@@ -51,12 +51,13 @@ public class IconHeaderItemPresenter  extends RowHeaderPresenter {
         // no op
     }
 
-    // TODO: TEMP - remove me when leanback onCreateViewHolder no longer sets the mUnselectAlpha,AND
-    // also assumes the xml inflation will return a RowHeaderView
     @Override
     protected void onSelectLevelChanged(RowHeaderPresenter.ViewHolder holder) {
-        // this is a temporary fix
-        holder.view.setAlpha(mUnselectedAlpha + holder.getSelectLevel() *
-                (1.0f - mUnselectedAlpha));
+        setViewAlpha(holder.view, holder.getSelectLevel());
     }
+
+    private void setViewAlpha(View view, float selectedLevel) {
+        view.setAlpha(mUnselectedAlpha + selectedLevel * (1.0f - mUnselectedAlpha));
+    }
+
 }
