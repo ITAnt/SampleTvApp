@@ -15,6 +15,7 @@ import android.support.v17.leanback.widget.BaseCardView;
 import android.support.v17.leanback.widget.ClassPresenterSelector;
 import android.support.v17.leanback.widget.HeaderItem;
 import android.support.v17.leanback.widget.ListRow;
+import android.support.v17.leanback.widget.ListRowHoverCardView;
 import android.support.v17.leanback.widget.ListRowPresenter;
 import android.support.v17.leanback.widget.OnItemViewClickedListener;
 import android.support.v17.leanback.widget.OnItemViewSelectedListener;
@@ -39,6 +40,7 @@ import com.tomishi.sampletvapp.presenter.CardItemPresenter;
 import com.tomishi.sampletvapp.presenter.CustomListRowPresenter;
 import com.tomishi.sampletvapp.presenter.GridItemPresenter;
 import com.tomishi.sampletvapp.presenter.IconHeaderItemPresenter;
+import com.tomishi.sampletvapp.presenter.ListRowHoverCardPresenter;
 import com.tomishi.sampletvapp.presenter.PhotoItemPresenter;
 import com.tomishi.sampletvapp.service.RecommendationService;
 
@@ -95,7 +97,14 @@ public class MainFragment extends BrowseFragment {
 
     private void loadRows() {
         ClassPresenterSelector selector = new ClassPresenterSelector();
-        selector.addClassPresenter(ListRow.class, new ListRowPresenter());
+        ListRowPresenter listRowPresenter = new ListRowPresenter();
+        listRowPresenter.setHoverCardPresenterSelector(new PresenterSelector() {
+            @Override
+            public Presenter getPresenter(Object item) {
+                return new ListRowHoverCardPresenter();
+            }
+        });
+        selector.addClassPresenter(ListRow.class, listRowPresenter);
         selector.addClassPresenter(CustomListRow.class, new CustomListRowPresenter());
         mRowsAdapter = new ArrayObjectAdapter(selector);
 
