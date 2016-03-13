@@ -18,7 +18,7 @@ public class GuidedStepActivity extends Activity {
         Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         if (null == savedInstanceState) {
-            GuidedStepFragment.add(getFragmentManager(), new GuidedFirstStepFragment());
+            GuidedStepFragment.addAsRoot(this, new GuidedFirstStepFragment(), android.R.id.content);
         }
     }
 }
