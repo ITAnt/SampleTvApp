@@ -16,10 +16,10 @@ import java.util.List;
 public class GuidedFirstStepFragment extends GuidedStepFragment {
     private static final int ACTION_CONTINUE = 0;
     private static final int ACTION_BACK = 1;
-    private static final int ACTION_CONTINUE_NEW = 2;
     private static final int ACTION_CONTINUE_SUB = 3;
     private static final int ACTION_PASSWOARD = 4;
     private static final int ACTION_DATE = 5;
+    private static final int ACTION_CONFIRM = 6;
 
     private static final int ACTION_SUB_MENU1 = 10;
     private static final int ACTION_SUB_MENU2 = 11;
@@ -39,9 +39,6 @@ public class GuidedFirstStepFragment extends GuidedStepFragment {
     public void onCreateActions(@NonNull List actions, Bundle savedInstanceState) {
         addAction(actions, ACTION_CONTINUE, "Continue", "Go to SecondStepFragment");
         addAction(actions, ACTION_BACK, "Cancel", "Go back");
-
-        // add new action which go to next step internally
-        addAction(actions, ACTION_CONTINUE_NEW, "Continue(New)", "Go with new transition");
 
         // add new action which has sub actions
         GuidedAction action = createAction(ACTION_CONTINUE_SUB, "Menu(has sub)", "description");
@@ -70,6 +67,12 @@ public class GuidedFirstStepFragment extends GuidedStepFragment {
     }
 
     @Override
+    public void onCreateButtonActions(@NonNull List<GuidedAction> actions, Bundle savedInstanceState) {
+        super.onCreateButtonActions(actions, savedInstanceState);
+        addAction(actions, ACTION_CONFIRM, "Confirm", "");
+    }
+
+    @Override
     public void onGuidedActionClicked(GuidedAction action) {
 
         switch ((int) action.getId()){
@@ -77,10 +80,8 @@ public class GuidedFirstStepFragment extends GuidedStepFragment {
                 GuidedStepFragment.add(getFragmentManager(), new GuidedSecondStepFragment());
                 break;
             case ACTION_BACK:
+            case ACTION_CONFIRM:
                 getActivity().finish();
-                break;
-            case ACTION_CONTINUE_NEW:
-                GuidedStepFragment.add(getFragmentManager(), new GuidedButtonActionFragment());
                 break;
             default:
                 break;
