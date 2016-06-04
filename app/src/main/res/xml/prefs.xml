@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:summary="This is a dummy activitiy only to show case how to build a settings in an application. Changing configurations in this example doesn't affect anything."
     android:title="Settings Example">
-    <!--
     <PreferenceScreen
         android:icon="@drawable/ic_settings_wifi_4_bar"
         android:key="prefs_wifi_screen_key"
@@ -29,9 +28,8 @@
             </Preference>
         </PreferenceCategory>
     </PreferenceScreen>
-    -->
     <PreferenceScreen
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_settings_time"
         android:key="prefs_date_time_screen_key"
         android:title="Date &amp; time">
         <CheckBoxPreference
@@ -64,14 +62,13 @@
     </PreferenceScreen>
     <ListPreference
         android:defaultValue="everyone"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_settings_parental_control"
         android:entries="@array/pref_parent_control_entries"
         android:entryValues="@array/pref_parent_control_entries_values"
         android:key="prefs_parental_control_level_key"
         android:dialogMessage="Allow contents rated for"
         android:title="Parental Control">
     </ListPreference>
-    <!--
     <PreferenceScreen
         android:icon="@drawable/ic_settings_apps"
         android:key="prefs_apps_screen_key"
@@ -114,5 +111,4 @@
             </ListPreference>
         </PreferenceCategory>
     </PreferenceScreen>
-    -->
 </PreferenceScreen>
