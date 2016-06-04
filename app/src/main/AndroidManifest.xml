@@ -30,6 +30,9 @@
 
         <activity android:name=".ui.VerticalGridActivity"/>
 
+        <activity android:name=".ui.SettingsActivity"
+            android:theme="@style/Theme.Example.LeanbackPreferences"/>
+
         <service android:name=".service.RecommendationService"/>
 
     </application>
