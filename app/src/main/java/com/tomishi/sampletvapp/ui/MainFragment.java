@@ -98,12 +98,14 @@ public class MainFragment extends BrowseFragment {
     private void loadRows() {
         ClassPresenterSelector selector = new ClassPresenterSelector();
         ListRowPresenter listRowPresenter = new ListRowPresenter();
+        /*
         listRowPresenter.setHoverCardPresenterSelector(new PresenterSelector() {
             @Override
             public Presenter getPresenter(Object item) {
                 return new ListRowHoverCardPresenter();
             }
         });
+        */
         selector.addClassPresenter(ListRow.class, listRowPresenter);
         selector.addClassPresenter(CustomListRow.class, new CustomListRowPresenter());
         mRowsAdapter = new ArrayObjectAdapter(selector);
