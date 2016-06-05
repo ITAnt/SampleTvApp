@@ -26,4 +26,12 @@
         <item>Wi-Fi network 5</item>
         <item>Wi-Fi network 6</item>
     </array>
+
+    <array name="prefs_settings_items">
+        <item>item1</item>
+        <item>item2</item>
+        <item>item3</item>
+        <item>item4</item>
+        <item>item5</item>
+    </array>
 </resources>

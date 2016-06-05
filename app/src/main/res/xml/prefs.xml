@@ -5,6 +5,50 @@
     android:summary="This is a dummy activitiy only to show case how to build a settings in an application. Changing configurations in this example doesn't affect anything."
     android:title="Settings Example">
     <PreferenceScreen
+        android:icon="@drawable/ic_settings_settings"
+        android:key="prefs_settings"
+        android:title="Settings">
+
+        <CheckBoxPreference
+            android:key="prefs_settings_checkbox"
+            android:title="Check Box"
+            android:summary="This is a sample of CheckBoxPreference" />
+
+        <SwitchPreference
+            android:key="prefs_settings_switch"
+            android:title="Switch"
+            android:summary="This is a sample of SwitchPreference"/>
+
+        <PreferenceCategory
+            android:title="Sub class of DialogPreference">
+
+            <EditTextPreference
+                android:key="prefs_settings_edit"
+                android:title="Edit Text"
+                android:summary="This is a sample of EditTextPreference"
+                android:dialogTitle="Please input text" />
+
+            <ListPreference
+                android:key="prefs_settings_list"
+                android:title="List"
+                android:summary="This is a sample of ListPreference"
+                android:entries="@array/prefs_settings_items"
+                android:entryValues="@array/prefs_settings_items"
+                android:dialogTitle="Please select a item" />
+
+            <MultiSelectListPreference
+                android:key="prefs_settings_multi"
+                android:title="Multi Select"
+                android:summary="This is a sample of MultiSelectListPreference"
+                android:entries="@array/prefs_settings_items"
+                android:entryValues="@array/prefs_settings_items"
+                android:dialogTitle="Please select items" />
+
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+
+    <PreferenceScreen
         android:icon="@drawable/ic_settings_wifi_4_bar"
         android:key="prefs_wifi_screen_key"
         android:title="Wi-Fi">
