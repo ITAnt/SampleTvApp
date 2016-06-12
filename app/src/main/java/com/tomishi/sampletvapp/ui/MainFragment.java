@@ -131,6 +131,7 @@ public class MainFragment extends BrowseFragment {
         adapter.add("Spinner");
         adapter.add("VerticalGridFragment");
         adapter.add("SettingsFragment");
+        adapter.add("PageBrowseFragment");
 
         mRowsAdapter.add(new ListRow(header, adapter));
 
@@ -281,7 +282,10 @@ public class MainFragment extends BrowseFragment {
                 } else if (item == "SettingsFragment") {
                     Intent intent = new Intent(getActivity(), SettingsActivity.class);
                     startActivity(intent);
-                }
+                } else if (item == "PageBrowseFragment") {
+                Intent intent = new Intent(getActivity(), PageBrowseActivity.class);
+                startActivity(intent);
+            }
             }
         }
     }
