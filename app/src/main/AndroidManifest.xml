@@ -33,6 +33,8 @@
         <activity android:name=".ui.SettingsActivity"
             android:theme="@style/Theme.Example.LeanbackPreferences"/>
 
+        <activity android:name=".ui.PageBrowseActivity"/>
+
         <service android:name=".service.RecommendationService"/>
 
     </application>
