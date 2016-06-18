@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.tomishi.sampletvapp.R;
-import com.tomishi.sampletvapp.util.SetupActionHelper;
 import com.tomishi.sampletvapp.util.SetupAnimationHelper;
 
 import java.util.ArrayList;
@@ -628,9 +627,6 @@ public class OnboardingFragment extends android.support.v17.leanback.app.Onboard
         AnimatorSet set = new AnimatorSet();
         set.playTogether(animators);
         return set;
-        //mAnimator = set;
-        //mAnimator.start();
-        //mNeedToEndAnimator = true;
     }
 
     @Nullable
@@ -672,13 +668,13 @@ public class OnboardingFragment extends android.support.v17.leanback.app.Onboard
 
     @Override
     protected void onFinishFragment() {
-        SetupActionHelper.onActionClick(OnboardingFragment.this, ACTION_CATEGORY, ACTION_NEXT);
+        getActivity().finish();;
     }
 
     @Override
     protected void onPageChanged(int newPage, int previousPage) {
         super.onPageChanged(newPage, previousPage);
-        onStartPageChangeAnimation(newPage);
+        onStartPageChangeAnimation(previousPage);
     }
 
     private void onStartPageChangeAnimation(int previousPage) {
