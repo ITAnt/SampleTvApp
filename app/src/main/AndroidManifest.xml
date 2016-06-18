@@ -35,6 +35,9 @@
 
         <activity android:name=".ui.PageBrowseActivity"/>
 
+        <activity android:name=".ui.OnboardingActivity"
+            android:theme="@style/Theme.Leanback.Onboarding"/>
+
         <service android:name=".service.RecommendationService"/>
 
     </application>

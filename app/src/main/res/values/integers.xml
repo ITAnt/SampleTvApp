@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- SetupAnimationHelper -->
+    <integer name="setup_fragment_transition_duration">333</integer>
+</resources>

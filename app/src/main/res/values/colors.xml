@@ -5,4 +5,7 @@
 
     <color name="default_background">#3d3d3d</color>
     <color name="default_background_trans">#cc3d3d3d</color>
+
+    <!-- for OnboardingActivity -->
+    <color name="common_tv_background">#0288D1</color>
 </resources>

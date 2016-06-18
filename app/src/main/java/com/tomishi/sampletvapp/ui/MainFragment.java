@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v17.leanback.app.BrowseFragment;
+import android.support.v17.leanback.app.OnboardingFragment;
 import android.support.v17.leanback.widget.ArrayObjectAdapter;
 import android.support.v17.leanback.widget.BaseCardView;
 import android.support.v17.leanback.widget.ClassPresenterSelector;
@@ -132,6 +133,7 @@ public class MainFragment extends BrowseFragment {
         adapter.add("VerticalGridFragment");
         adapter.add("SettingsFragment");
         adapter.add("PageBrowseFragment");
+        adapter.add("OnboardingFragment");
 
         mRowsAdapter.add(new ListRow(header, adapter));
 
@@ -283,9 +285,12 @@ public class MainFragment extends BrowseFragment {
                     Intent intent = new Intent(getActivity(), SettingsActivity.class);
                     startActivity(intent);
                 } else if (item == "PageBrowseFragment") {
-                Intent intent = new Intent(getActivity(), PageBrowseActivity.class);
-                startActivity(intent);
-            }
+                    Intent intent = new Intent(getActivity(), PageBrowseActivity.class);
+                    startActivity(intent);
+                } else if (item == "OnboardingFragment") {
+                    Intent intent = new Intent(getActivity(), OnboardingActivity.class);
+                    startActivity(intent);
+                }
             }
         }
     }

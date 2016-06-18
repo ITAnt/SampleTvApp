@@ -5,4 +5,22 @@
 
     <dimen name="card_item_width">156dp</dimen>
     <dimen name="card_item_height">88dp</dimen>
+
+    <!-- SetupAnimatioinHelper -->
+    <dimen name="setup_fragment_transition_long_distance">80dp</dimen>
+    <dimen name="setup_fragment_transition_short_distance">48dp</dimen>
+
+    <!-- Onboarding screens -->
+    <eat-comment />
+    <dimen name="onboarding_welcome_content_margin_top">67dp</dimen>
+    <dimen name="onboarding_welcome_content_margin_bottom">50dp</dimen>
+    <dimen name="onboarding_welcome_shadow_height">9dp</dimen>
+    <dimen name="onboarding_welcome_shadow_margin_top">16dp</dimen>
+    <!-- This value is lb_onboarding_content_margin_bottom(98dp)
+         + lb_onboarding_welcome_content_margin_bottom(50dp)
+         + lb_onboarding_welcome_shadow_height(9dp)
+         + lb_onboarding_welcome_shadow_margin_top(16dp)
+         + margin from tv_container(70dp) -->
+    <dimen name="onboarding_welcome_arrow_margin_bottom">243dp</dimen>
+
 </resources>
