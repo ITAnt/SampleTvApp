@@ -23,9 +23,6 @@ import java.util.List;
  * A fragment for the onboarding welcome screen.
  */
 public class OnboardingFragment extends android.support.v17.leanback.app.OnboardingFragment {
-    public static final String ACTION_CATEGORY = "comgoogle.android.tv.onboarding.WelcomeFragment";
-    public static final int ACTION_NEXT = 1;
-
     private static final long START_DELAY_CLOUD_MS = 33;
     private static final long START_DELAY_TV_MS = 567;
     private static final long START_DELAY_TV_CONTENTS_MS = 833;
@@ -563,7 +560,6 @@ public class OnboardingFragment extends android.support.v17.leanback.app.Onboard
     private ImageView mArrowView;
 
     private Animator mAnimator;
-    private boolean mNeedToEndAnimator;
 
     public OnboardingFragment(Context context) {
         SetupAnimationHelper.initialize(context);
@@ -679,11 +675,7 @@ public class OnboardingFragment extends android.support.v17.leanback.app.Onboard
 
     private void onStartPageChangeAnimation(int previousPage) {
         if (mAnimator != null) {
-            if (mNeedToEndAnimator) {
-                mAnimator.end();
-            } else {
-                mAnimator.cancel();
-            }
+            mAnimator.cancel();
         }
         mArrowView.setVisibility(View.GONE);
         // TV screen hiding animator.
@@ -746,6 +738,5 @@ public class OnboardingFragment extends android.support.v17.leanback.app.Onboard
         });
         mAnimator = SetupAnimationHelper.applyAnimationTimeScale(animatorSet);
         mAnimator.start();
-        mNeedToEndAnimator = false;
     }
 }
