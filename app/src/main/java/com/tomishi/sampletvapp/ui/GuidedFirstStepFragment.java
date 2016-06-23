@@ -62,7 +62,7 @@ public class GuidedFirstStepFragment extends GuidedStepFragment {
         actions.add(actionEdit);
 
         GuidedAction actionEditDesc = new GuidedAction.Builder(getActivity())
-                .id(ACTION_EDITABLE_ITEM)
+                .id(ACTION_EDITABLE_DESC_ITEM)
                 .title("Editable description item")
                 .editTitle("")
                 .description("description")
