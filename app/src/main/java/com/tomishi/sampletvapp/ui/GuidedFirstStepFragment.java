@@ -7,6 +7,7 @@ import android.support.v17.leanback.app.GuidedStepFragment;
 import android.support.v17.leanback.widget.GuidanceStylist;
 import android.support.v17.leanback.widget.GuidedAction;
 import android.support.v17.leanback.widget.GuidedDatePickerAction;
+import android.text.TextUtils;
 
 import com.tomishi.sampletvapp.R;
 
@@ -17,8 +18,9 @@ public class GuidedFirstStepFragment extends GuidedStepFragment {
     private static final int ACTION_CONTINUE = 0;
     private static final int ACTION_BACK = 1;
     private static final int ACTION_CONTINUE_SUB = 3;
-    private static final int ACTION_PASSWOARD = 4;
-    private static final int ACTION_DATE = 5;
+    private static final int ACTION_EDITABLE_ITEM = 4;
+    private static final int ACTION_EDITABLE_DESC_ITEM = 5;
+    private static final int ACTION_DATE = 6;
     private static final int ACTION_CONFIRM = 6;
 
     private static final int ACTION_SUB_MENU1 = 10;
@@ -49,12 +51,24 @@ public class GuidedFirstStepFragment extends GuidedStepFragment {
         actions.add(action);
 
         // add new action which description is editable
-        GuidedAction actionPass = new GuidedAction.Builder(getActivity())
-                .id(ACTION_PASSWOARD)
-                .title("Password")
+        GuidedAction actionEdit = new GuidedAction.Builder(getActivity())
+                .id(ACTION_EDITABLE_ITEM)
+                .title("Editable item")
+                .editTitle("")
+                .description("description")
+                .editDescription("edit description")
+                .editable(true)
+                .build();
+        actions.add(actionEdit);
+
+        GuidedAction actionEditDesc = new GuidedAction.Builder(getActivity())
+                .id(ACTION_EDITABLE_ITEM)
+                .title("Editable description item")
+                .editTitle("")
+                .description("description")
                 .descriptionEditable(true)
                 .build();
-        actions.add(actionPass);
+        actions.add(actionEditDesc);
 
         // add new date action
         GuidedDatePickerAction actionDate = new GuidedDatePickerAction.Builder(getActivity()).
@@ -86,6 +100,18 @@ public class GuidedFirstStepFragment extends GuidedStepFragment {
             default:
                 break;
         }
+    }
+
+    @Override
+    public long onGuidedActionEditedAndProceed(GuidedAction action) {
+        //return super.onGuidedActionEditedAndProceed(action);
+        if (action.getId() == ACTION_EDITABLE_ITEM) {
+            CharSequence title = action.getEditTitle();
+            if (!TextUtils.isEmpty(title)) {
+                action.setTitle(title);
+            }
+        }
+        return GuidedAction.ACTION_ID_CURRENT;
     }
 
     private void addAction(List actions, long id, String title, String desc) {
