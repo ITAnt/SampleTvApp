@@ -22,7 +22,11 @@
 
         <activity android:name=".ui.ErrorActivity" />
 
-        <activity android:name=".ui.PlaybackOverlayActivity"/>
+        <activity android:name=".ui.PlaybackOverlayActivity"
+            android:launchMode="singleTask"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true"
+            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation" />
 
         <activity android:name=".ui.GuidedStepActivity"/>
 

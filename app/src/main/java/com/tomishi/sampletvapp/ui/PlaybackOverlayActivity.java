@@ -1,8 +1,14 @@
 package com.tomishi.sampletvapp.ui;
 
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.v4.os.BuildCompat;
 import android.util.Log;
 import android.widget.VideoView;
 
@@ -34,6 +40,20 @@ public class PlaybackOverlayActivity extends Activity {
         setContentView(R.layout.activity_playback_overlay);
 
         setupVideoView();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+        setupVideoView();
+    }
+
+    public static boolean supportsPictureInPicture(Context context) {
+        return BuildCompat.isAtLeastN()
+                && context.getPackageManager().hasSystemFeature(
+                           PackageManager.FEATURE_PICTURE_IN_PICTURE);
     }
 
     private void setupVideoView() {

@@ -2,6 +2,7 @@ package com.tomishi.sampletvapp.ui;
 
 import android.app.Activity;
 import android.media.session.PlaybackState;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -47,6 +48,7 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
     private PlaybackControlsRow.HighQualityAction mHighQualityAction;
     private PlaybackControlsRow.ClosedCaptioningAction mClosedCaptioningAction;
     private PlaybackControlsRow.MoreActions mMoreActions;
+    private PlaybackControlsRow.PictureInPictureAction mPipAction;
 
     private int mCurrentPlaybackState = PlaybackState.STATE_NONE;
     private Runnable mRunnable;
@@ -72,6 +74,11 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         super.onActivityCreated(savedInstanceState);
 
         togglePlayback(true);
+    }
+
+    @Override
+    public void onPictureInPictureModeChanged(boolean isInPictureInPictureMode) {
+        setMenuVisibility(isInPictureInPictureMode);
     }
 
     private void setUpRows() {
@@ -118,6 +125,7 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         mHighQualityAction = new PlaybackControlsRow.HighQualityAction(activity);
         mClosedCaptioningAction = new PlaybackControlsRow.ClosedCaptioningAction(activity);
         mMoreActions = new PlaybackControlsRow.MoreActions(activity);
+        mPipAction = new PlaybackControlsRow.PictureInPictureAction(activity);
 
         // setup PrimaryAction
         mPrimaryActionsAdapter.add(mSkipPreviousAction);
@@ -125,6 +133,9 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         mPrimaryActionsAdapter.add(mPlayPauseAction);
         mPrimaryActionsAdapter.add(mFastForwardAction);
         mPrimaryActionsAdapter.add(mSkipNextAction);
+        if (PlaybackOverlayActivity.supportsPictureInPicture(getActivity())) {
+            mPrimaryActionsAdapter.add(mPipAction);
+        }
 
         // setup SecondaryAction
         mSecondaryActionsAdapter.add(mThumbsUpAction);
@@ -144,11 +155,22 @@ public class PlaybackOverlayFragment extends android.support.v17.leanback.app.Pl
         mRowsAdapter.add(new ListRow(header, listRowAdapter));
     }
 
+    @Override
+    public void onPause() {
+        getActivity().requestVisibleBehind(true);
+        super.onPause();
+    }
+
     private final class ActionClickedListener implements OnActionClickedListener {
         @Override
         public void onActionClicked(Action action) {
             if (action.getId() == mPlayPauseAction.getId()) {
                 togglePlayback(mPlayPauseAction.getIndex() == PlaybackControlsRow.PlayPauseAction.PLAY);
+
+            } else if (action.getId() == mPipAction.getId()) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    getActivity().enterPictureInPictureMode();
+                }
             }
 
             if (action instanceof PlaybackControlsRow.MultiAction) {
