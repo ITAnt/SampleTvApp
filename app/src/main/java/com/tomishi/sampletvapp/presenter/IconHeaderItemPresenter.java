@@ -34,7 +34,8 @@ public class IconHeaderItemPresenter  extends RowHeaderPresenter {
     public void onBindViewHolder(Presenter.ViewHolder viewHolder, Object o) {
         IconHeaderItem iconHeaderItem = (IconHeaderItem) ((ListRow) o).getHeaderItem();
         View rootView = viewHolder.view;
-
+        rootView.setFocusable(true);
+        
         ImageView iconView = (ImageView) rootView.findViewById(R.id.header_icon);
         int iconResId = iconHeaderItem.getIconResId();
         if( iconResId != IconHeaderItem.ICON_NONE) { // Show icon only when it is set.
